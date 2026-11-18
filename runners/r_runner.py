@@ -5,14 +5,11 @@ the R script as a subprocess and reading back its CSV output. This keeps
 the wrapper genuinely multi-language rather than pretending SingleR can
 run in pure Python.
 
-NOTE ON R VERSION: this machine has two R installations (4.2.2 and 4.5.0).
-'Rscript' on PATH resolves to 4.5.0, but all of this project's R packages
-(celldex, a specific dbplyr version compatible with BiocFileCache,
-zellkonverter, optparse, etc.) were installed into 4.2.2's library via
-RStudio. rscript_bin below is hardcoded to 4.2.2's Rscript.exe explicitly
-rather than relying on PATH, to avoid silently running against an empty
-R environment. If you ever migrate the R package installs to 4.5.0
-instead, update this path (or better, make it a config value).
+RSCRIPT PATH: configurable via the RSCRIPT_BIN environment variable,
+defaulting to this project's current Windows R install (R-4.6.1) if unset
+- so existing Windows usage is unaffected. Inside the Docker image,
+RSCRIPT_BIN is set to just "Rscript" (resolved via PATH, which the
+container sets up correctly via apt) - see Dockerfile.
 """
 
 import subprocess
@@ -22,10 +19,12 @@ import pandas as pd
 import scipy.io
 import scipy.sparse as sp
 
+DEFAULT_RSCRIPT_BIN = r"C:/Program Files/R/R-4.6.1/bin/Rscript.exe"
+
 
 def run_r_method(adata, script_path: str, reference: str,
                   resolution: str = "main",
-                  rscript_bin: str = r"C:/Program Files/R/R-4.6.1/bin/Rscript.exe"):
+                  rscript_bin: str = None):
     """
     Exports adata's expression matrix + barcodes/genes to a temp directory,
     invokes the given R script as a subprocess, and reads back the
@@ -36,6 +35,9 @@ def run_r_method(adata, script_path: str, reference: str,
     labels : pd.Series (indexed by adata.obs_names)
     confidence : pd.Series (indexed by adata.obs_names)
     """
+    if rscript_bin is None:
+        rscript_bin = os.environ.get("RSCRIPT_BIN", DEFAULT_RSCRIPT_BIN)
+
     with tempfile.TemporaryDirectory() as tmp_dir:
         # Export query data in the format run_singler.R expects
         scipy.io.mmwrite(os.path.join(tmp_dir, "query_counts.mtx"),

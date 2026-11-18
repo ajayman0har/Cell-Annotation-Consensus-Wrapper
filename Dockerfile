@@ -36,9 +36,10 @@ RUN Rscript install_r_packages.R
 # ── Project code ─────────────────────────────────────────────────────────
 COPY . .
 
-# RSCRIPT_BIN in scina_runner.py / r_runner.py is hardcoded to a Windows
-# path - this must be changed to just "Rscript" (resolved via PATH, which
-# this image sets up correctly) before the container can actually run the
-# pipeline. See docker/PORTABILITY_NOTES.md.
+# These override the Windows-default paths in r_runner.py/scina_runner.py
+# (RSCRIPT_BIN) and config.py (ANNOTATION_WRAPPER_DATA_ROOT) - see those
+# files' comments for the defaults they fall back to outside Docker.
+ENV RSCRIPT_BIN=Rscript
+ENV ANNOTATION_WRAPPER_DATA_ROOT=/app/data
 
 CMD ["python", "pipeline.py", "--help"]

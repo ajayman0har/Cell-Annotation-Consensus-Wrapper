@@ -13,9 +13,11 @@ import pandas as pd
 import scipy.io
 import scipy.sparse as sp
 
-# Same R install used for SingleR - see r_runner.py's note for why this
-# is hardcoded rather than relying on PATH.
-RSCRIPT_BIN = r"C:/Program Files/R/R-4.6.1/bin/Rscript.exe"
+# Same R install used for SingleR. Configurable via the RSCRIPT_BIN
+# environment variable (set to "Rscript" inside the Docker image, where
+# it resolves correctly via PATH); defaults to this project's current
+# Windows R install if unset, so existing Windows usage is unaffected.
+RSCRIPT_BIN = os.environ.get("RSCRIPT_BIN", r"C:/Program Files/R/R-4.6.1/bin/Rscript.exe")
 
 
 def run_scina(adata, script_path: str = "runners/run_scina.R"):

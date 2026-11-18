@@ -32,8 +32,19 @@ Each entry is a MethodConfig describing:
   - kwargs         : extra keyword args passed to the runner
 """
 
+import os
 from dataclasses import dataclass, field
 from typing import Callable, Optional, Literal, Any, Dict
+
+# Base path for reference/model data files, configurable via the
+# ANNOTATION_WRAPPER_DATA_ROOT environment variable. Defaults to this
+# project's current Windows location so existing usage is unaffected;
+# inside Docker, this is set to the mounted data volume path instead
+# (e.g. "/app/data") - see Dockerfile and docker/PORTABILITY_NOTES.md.
+DATA_ROOT = os.environ.get(
+    "ANNOTATION_WRAPPER_DATA_ROOT",
+    r"C:\Users\ajaym\PyCharmMiscProject\Research_2026"
+)
 
 
 @dataclass
@@ -82,8 +93,8 @@ def _liver_methods():
             weight=1.0,
             runner=run_scanvi,
             kwargs={
-                "model_dir": r"C:\Users\ajaym\PyCharmMiscProject\Research_2026\guilliams_output\scanvi_model",
-                "reference_path": r"C:\Users\ajaym\PyCharmMiscProject\Research_2026\guilliams_output\guilliams_stst_50k_annotated.h5ad",
+                "model_dir": os.path.join(DATA_ROOT, "guilliams_output", "scanvi_model"),
+                "reference_path": os.path.join(DATA_ROOT, "guilliams_output", "guilliams_stst_50k_annotated.h5ad"),
             },
         ),
         # scType: marker-gene-signature based (via sctypepy), NOT a trained
@@ -148,7 +159,7 @@ def _liver_methods():
         #     weight=1.0,
         #     runner=run_celltypist,
         #     mask_fn=immune_like_mask,
-        #     kwargs={"model_name": r"C:\Users\ajaym\PyCharmMiscProject\Research_2026\immgen_portal_output\custom_models\custom_mouse_immune_fine.pkl"},
+        #     kwargs={"model_name": os.path.join(DATA_ROOT, "immgen_portal_output", "custom_models", "custom_mouse_immune_fine.pkl")},
         # ),
         # MethodConfig(
         #     name="scanvi_immgen_sc_fine",
@@ -157,8 +168,8 @@ def _liver_methods():
         #     runner=run_scanvi,
         #     mask_fn=immune_like_mask,
         #     kwargs={
-        #         "model_dir": r"C:\Users\ajaym\PyCharmMiscProject\Research_2026\immgen_portal_output\scanvi_model_fine",
-        #         "reference_path": r"C:\Users\ajaym\PyCharmMiscProject\Research_2026\immgen_portal_output\immgen_sc_merged_reference.h5ad",
+        #         "model_dir": os.path.join(DATA_ROOT, "immgen_portal_output", "scanvi_model_fine"),
+        #         "reference_path": os.path.join(DATA_ROOT, "immgen_portal_output", "immgen_sc_merged_reference.h5ad"),
         #     },
         # ),
     ]
