@@ -1,0 +1,17 @@
+# Large data/model artifacts - too big for git, keep these out
+*.h5ad
+*.pt
+*.ckpt
+scanvi_model/
+scanvi_model_fine/
+custom_models/
+*.mtx
+*.mtx.gz
+*.log
+
+# Python
+__pycache__/
+*.pyc
+
+# Outputs (regenerate from scripts, don't need to version them)
+*.png
