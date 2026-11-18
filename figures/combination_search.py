@@ -21,8 +21,14 @@ import pandas as pd
 from config import build_registry
 from consensus import compute_consensus
 
-H5AD_PATH = "C:/Users/ajaym/PyCharmMiscProject/Research_2026/Scripts/xiong_immune_output/xiong_wrapper_v9.h5ad"
-OUTPUT_CSV = "C:/Users/ajaym/PyCharmMiscProject/Research_2026/Scripts/xiong_immune_output/combination_search_results.csv"
+H5AD_PATH = "C:/Users/ajaym/PyCharmMiscProject/Research_2026/GSE166504_RAW/gse166504_wrapper_v1.h5ad"
+OUTPUT_CSV = "C:/Users/ajaym/PyCharmMiscProject/Research_2026/GSE166504_RAW/combination_search_results_gse166504.csv"
+# NOTE: this is deliberately pointed at GSE166504, not Xiong, specifically
+# to VERIFY a claim already stated in README.md/METHODS.md (that the best
+# combination differs by dataset) which had NOT actually been checked
+# before being written down. Compare this run's top-10 ranking against
+# xiong_immune_output/combination_search_results.csv (the original Xiong
+# run) once this finishes.
 
 print(f"Loading {H5AD_PATH}...")
 adata = sc.read_h5ad(H5AD_PATH)
