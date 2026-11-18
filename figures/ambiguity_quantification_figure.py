@@ -91,8 +91,9 @@ fig.text(0.5, -0.14, callout, ha="center", fontsize=10, family="monospace",
          bbox=dict(boxstyle="round,pad=0.6", facecolor="#fdf6e3", edgecolor="#2c7a3d"))
 
 fig.suptitle("Consensus Resolves Ambiguity Without Overclaiming\n"
+             "Dataset: Xiong et al. (GSE129516)\n"
              "(result is robust across cutoffs - remaining cases are known edge cases, not noise)",
-             fontsize=14, fontweight="bold", y=1.05)
+             fontsize=14, fontweight="bold", y=1.08)
 
 plt.tight_layout(rect=[0, 0.18, 1, 0.95])  # reserve bottom 18% for the callout box
 output_path = f"{OUTPUT_DIR}/ambiguity_quantification_figure.png"

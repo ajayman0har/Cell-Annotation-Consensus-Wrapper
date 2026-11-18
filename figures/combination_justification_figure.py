@@ -21,6 +21,8 @@ import matplotlib.pyplot as plt
 
 OUTPUT_DIR = "C:/Users/ajaym/PyCharmMiscProject/Research_2026/Scripts/xiong_immune_output"
 CSV_PATH = f"{OUTPUT_DIR}/combination_search_results.csv"
+DATASET_LABEL = "Xiong et al. (GSE129516)"
+OUTPUT_SUFFIX = ""  # e.g. "_gse166504" for the GSE166504 version
 
 df = pd.read_csv(CSV_PATH)
 if "n_ambiguous_clusters" not in df.columns:
@@ -62,13 +64,14 @@ ax.annotate(f"Highest mean score\n({top_combo['combo'].iloc[0]})\n- finds NOTHIN
 ax.set_xlabel("Mean Consensus Score", fontsize=13, fontweight="bold")
 ax.set_ylabel("Ambiguous Clusters Detected\n(>40% of cells below 0.5 consensus score)",
               fontsize=13, fontweight="bold")
-ax.set_title("What Does the Highest-Scoring Combination Actually Miss?\n"
-             "High mean score + zero ambiguous clusters = blind to real disagreement, not more accurate",
+ax.set_title(f"What Does the Highest-Scoring Combination Actually Miss?\n"
+             f"Dataset: {DATASET_LABEL}\n"
+             f"High mean score + zero ambiguous clusters = blind to real disagreement, not more accurate",
              fontsize=13.5, fontweight="bold")
 plt.colorbar(scatter, ax=ax, label="Number of methods in combination")
 ax.grid(alpha=0.3)
 
 plt.tight_layout()
-output_path = f"{OUTPUT_DIR}/combination_justification_figure.png"
+output_path = f"{OUTPUT_DIR}/combination_justification_figure{OUTPUT_SUFFIX}.png"
 plt.savefig(output_path, dpi=200, bbox_inches="tight")
 print(f"Saved {output_path}")
