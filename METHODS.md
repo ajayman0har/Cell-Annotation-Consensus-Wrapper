@@ -220,11 +220,15 @@ retains detection of real cross-method disagreement.
 
 ## 9. Limitations
 
-- The combination ranking in Section 8.3 is dataset-specific; the
-  "best" subset by any metric is not guaranteed to generalize, and users
-  working with substantially different tissue/disease contexts should
-  consider re-running this analysis on their own data (see
-  `figures/combination_search.py`).
+- Section 8.3's combination analysis was repeated on the GSE166504
+  validation dataset; the single highest-mean-score combination
+  (CellTypist + scANVI) matched exactly between the two datasets, and
+  detected zero genuinely ambiguous clusters on both. The qualitative
+  conclusion (mean score alone rewards trivial agreement over
+  disagreement-detection) replicated across both datasets; whether the
+  specific identity of the top-scoring combination would change for a
+  substantially different tissue or disease context remains untested and
+  should not be assumed either way.
 - Cluster purity measures internal self-consistency, not ground-truth
   correctness; a method could in principle be confidently and
   consistently wrong across a cluster and still register high purity.

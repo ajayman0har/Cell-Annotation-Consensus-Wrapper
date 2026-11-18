@@ -42,10 +42,15 @@ computes what's missing.
 
 ### Using a subset of methods instead of the default
 
-The "best" combination of methods is dataset-dependent (see
-`figures/combination_search.py` - rankings shift between our two test
-datasets). The full 5-method registry is a sensible default; override it
-if you've run your own combination analysis:
+Running `figures/combination_search.py` on both test datasets found the
+same top-scoring 2-method combination on each (`ct_label + scanvi_label`)
+- but in both cases, that combination detects ZERO genuine disagreement
+anywhere in the data, while the full 5-method default detects real,
+specific ambiguous clusters on both datasets (Cluster 19 on Xiong,
+Cluster 8 on GSE166504). This is why raw mean score alone is not used to
+pick a default - see `figures/combination_justification_figure.py`. The
+full registry remains the default; override it only if your own
+combination analysis on your own data shows a good reason to:
 
 ```bash
 python pipeline.py --input your_data.h5ad --output out.h5ad \
