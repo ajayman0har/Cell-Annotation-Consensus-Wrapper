@@ -151,15 +151,24 @@ data by changing `H5AD_PATH`.
 
 ## Known gaps / in progress
 
-- Direct benchmark against popV (Ergen et al. 2024) - popV uses a simple
-  unweighted majority vote across ~8 reference-dependent methods; this
-  wrapper uses weighted voting via cluster purity and includes
+- **Direct benchmark against popV** (Ergen et al. 2024) - popV uses a
+  simple unweighted majority vote across ~8 reference-dependent methods;
+  this wrapper uses weighted voting via cluster purity and includes
   reference-free marker-based methods. Benchmark setup blocked on Windows
   build issues for two of popV's dependencies (`tiledbsoma`, `harmonypy`
-  have no Windows binaries); in progress via a separate conda environment.
-- Formal methods document (academic-style writeup, separate from this
-  README).
-- Docker containerization for full reproducibility.
-- Cross-tissue generalization (adipose, brain) - scaffolded in
-  `config.py`'s tissue-keyed design but not yet populated with real
-  reference data for those tissues.
+  have no Windows binaries - confirmed no Windows support exists via
+  conda-forge or bioconda either). Next step: either install the MSVC
+  Build Tools and compile from source, or run via WSL, where both
+  packages have working Linux builds.
+- **Cross-tissue generalization** (adipose, brain) - scaffolded in
+  `config.py`'s tissue-keyed design, but needs real reference data
+  sourced, ingested, and (for scANVI) trained from scratch for each new
+  tissue - a substantial undertaking, not a quick addition. See the
+  TODO docstrings in `config.py`'s `_adipose_methods()` /
+  `_brain_methods()` for the specific data sources and steps identified
+  so far.
+
+See `METHODS.md` for the formal methodology writeup and `Dockerfile` /
+`docker/` for containerization (environment and path portability are in
+place; see `docker/PORTABILITY_NOTES.md` for the one remaining
+verification step before a build has actually been run end to end).
