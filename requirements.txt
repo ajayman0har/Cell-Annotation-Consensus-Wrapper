@@ -1,0 +1,11 @@
+scanpy
+anndata
+celltypist
+scvi-tools
+torch
+pandas
+numpy
+matplotlib
+matplotlib-venn
+scipy
+sctypepy
