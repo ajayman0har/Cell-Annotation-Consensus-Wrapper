@@ -254,9 +254,20 @@ retains detection of real cross-method disagreement.
   (2021). GEO: GSE166504.
 - Ergen, C., Streets, A. & Yosef, N. popV: Consensus prediction of cell
   type labels in single-cell data. *Nat Genet* (2024).
-
-*Note: tool-specific citations (CellTypist, scANVI, SingleR, scType,
-SCINA original publications) should be verified against their current
-canonical references before this document is finalized for submission,
-as exact citation details were not independently re-verified for every
-tool in this draft.*
+- Domínguez Conde, C. et al. Cross-tissue immune cell analysis reveals
+  tissue-specific features in humans. *Science* 376, eabl5197 (2022).
+  [CellTypist]
+- Xu, C., Lopez, R., Mehlman, E., Regier, J., Jordan, M.I. & Yosef, N.
+  Probabilistic harmonization and annotation of single-cell
+  transcriptomics data with deep generative models. *Mol Syst Biol* 17,
+  e9620 (2021). [scANVI]
+- Aran, D., Looney, A.P., Liu, L. et al. Reference-based analysis of lung
+  single-cell sequencing reveals a transitional profibrotic macrophage.
+  *Nat Immunol* 20, 163-172 (2019). [SingleR]
+- Ianevski, A., Giri, A.K. & Aittokallio, T. Fully-automated and
+  ultra-fast cell-type identification using specific marker combinations
+  from single-cell transcriptomic data. *Nat Commun* 13, 1246 (2022).
+  [scType]
+- Zhang, Z., Luo, D., Zhong, X. et al. SCINA: A Semi-Supervised Subtyping
+  Algorithm of Single Cells and Bulk Samples. *Genes* 10, 531 (2019).
+  [SCINA]
